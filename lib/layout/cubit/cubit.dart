@@ -7,6 +7,7 @@ import 'package:news_app/modules/business_screen/business_screen.dart';
 import 'package:news_app/modules/science_screen/science_screen.dart';
 import 'package:news_app/modules/settings_screen/settings_screen.dart';
 import 'package:news_app/modules/tech_screen/tech_screen.dart';
+import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates>{
   NewsCubit() : super(NewsInitialState());
@@ -22,16 +23,37 @@ class NewsCubit extends Cubit<NewsStates>{
     BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings)),
   ];
 
-  void changeNavBarIndex(index){
-    bottomNavBarIndex = index;
-    emit(NewsChangeNavBarState());
-  }
-
   List<Widget> screens = [
     BusinessScreen(),
     ScienceScreen(),
     TechScreen(),
     SettingsScreen(),
   ];
+
+  void changeNavBarIndex(index){
+    bottomNavBarIndex = index;
+    emit(NewsChangeNavBarState());
+  }
+
+
+  List businessList = [];
+
+  void getBusiness(){
+    emit(NewsGetBusinessLoadingState());
+    DioHelper.getData(url: '/v2/top-headlines', query: {
+      'country': 'us',
+      'category': 'business',
+      'apiKey': '485691edba1548158fa3070d0566c01f'
+    }).then((value) {
+      emit(NewsGetBusinessSuccessState());
+      businessList = value.data;
+      print(value.data.toString());
+    }).catchError((error) {
+      emit(NewsGetBusinessErrorState());
+      print(error.toString());
+    });
+  }
+
+
 
 }
