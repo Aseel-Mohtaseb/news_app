@@ -9,6 +9,8 @@ import 'package:news_app/modules/settings_screen/settings_screen.dart';
 import 'package:news_app/modules/tech_screen/tech_screen.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
+import '../../models/article_model.dart';
+
 class NewsCubit extends Cubit<NewsStates>{
   NewsCubit() : super(NewsInitialState());
 
@@ -36,7 +38,7 @@ class NewsCubit extends Cubit<NewsStates>{
   }
 
 
-  List businessList = [];
+  List<ArticleModel> businessList = [];
 
   void getBusiness(){
     emit(NewsGetBusinessLoadingState());
@@ -46,7 +48,7 @@ class NewsCubit extends Cubit<NewsStates>{
       'apiKey': '485691edba1548158fa3070d0566c01f'
     }).then((value) {
       emit(NewsGetBusinessSuccessState());
-      businessList = value.data;
+      businessList = List<ArticleModel>.from(value.data['articles'].map((article)=>ArticleModel.fromMap(article)));
       print(value.data.toString());
     }).catchError((error) {
       emit(NewsGetBusinessErrorState());

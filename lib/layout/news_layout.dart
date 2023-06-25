@@ -29,7 +29,8 @@ class NewsLayout extends StatelessWidget {
                 onTap: (index) {
                   newsCubit.changeNavBarIndex(index);
                 },
-                items: newsCubit.bottomNavBarItems),
+                items: newsCubit.bottomNavBarItems,
+            ),
           );
         },
       ),
