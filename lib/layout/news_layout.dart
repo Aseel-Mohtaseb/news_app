@@ -10,27 +10,26 @@ class NewsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsCubit()..getBusiness(),
-      child: BlocConsumer<NewsCubit, NewsStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var newsCubit = NewsCubit.get(context);
+    return BlocConsumer<NewsCubit, NewsStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var newsCubit = NewsCubit.get(context);
 
-          return Scaffold(
-            appBar: AppBar(title: Text('News')),
-            body: newsCubit.screens[newsCubit.bottomNavBarIndex],
-            bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                currentIndex: newsCubit.bottomNavBarIndex,
-                onTap: (index) {
-                  newsCubit.changeNavBarIndex(index);
-                },
-                items: newsCubit.bottomNavBarItems,
-            ),
-          );
-        },
-      ),
+        return Scaffold(
+          appBar: AppBar(title: Text('News'), actions: [
+            Icon(Icons.search)
+          ]),
+          body: newsCubit.screens[newsCubit.bottomNavBarIndex],
+          bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: newsCubit.bottomNavBarIndex,
+              onTap: (index) {
+                newsCubit.changeNavBarIndex(index);
+              },
+              items: newsCubit.bottomNavBarItems,
+          ),
+        );
+      },
     );
   }
 }

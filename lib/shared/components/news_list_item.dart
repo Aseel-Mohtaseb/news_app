@@ -15,8 +15,8 @@ class NewsListItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 120,
-            width: 150,
+            height: 110,
+            width: 130,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
@@ -40,11 +40,8 @@ class NewsListItem extends StatelessWidget {
                 children: [
                   Text(
                     '${articleModel.title}',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
                   SizedBox(
