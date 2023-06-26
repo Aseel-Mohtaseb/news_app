@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
                 ),
 
               ),
-              themeMode: ThemeMode.dark,
+              themeMode: NewsCubit.get(context).isLight ? ThemeMode.light : ThemeMode.dark,
               home: const NewsLayout(),
             );
           }),

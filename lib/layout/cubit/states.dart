@@ -21,3 +21,5 @@ class NewsGetScienceLoadingState extends NewsStates {}
 class NewsGetScienceSuccessState extends NewsStates {}
 
 class NewsGetScienceErrorState extends NewsStates {}
+
+class NewsChangeModeState extends NewsStates {}

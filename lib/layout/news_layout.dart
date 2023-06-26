@@ -17,16 +17,25 @@ class NewsLayout extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(title: Text('News'), actions: [
-            Icon(Icons.search)
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {
+                NewsCubit.get(context).changeMode();
+              },
+              icon: const Icon(Icons.brightness_6),
+            )
           ]),
           body: newsCubit.screens[newsCubit.bottomNavBarIndex],
           bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: newsCubit.bottomNavBarIndex,
-              onTap: (index) {
-                newsCubit.changeNavBarIndex(index);
-              },
-              items: newsCubit.bottomNavBarItems,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: newsCubit.bottomNavBarIndex,
+            onTap: (index) {
+              newsCubit.changeNavBarIndex(index);
+            },
+            items: newsCubit.bottomNavBarItems,
           ),
         );
       },
