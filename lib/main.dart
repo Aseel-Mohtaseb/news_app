@@ -6,14 +6,19 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:news_app/layout/cubit/cubit.dart';
 import 'package:news_app/layout/cubit/states.dart';
 import 'package:news_app/shared/bloc_observer.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 import 'layout/news_layout.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
+  await CacheHelper.init();
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -83,7 +88,6 @@ class MyApp extends StatelessWidget {
                     color: Colors.white
                   ),
                 ),
-
               ),
               themeMode: NewsCubit.get(context).isLight ? ThemeMode.light : ThemeMode.dark,
               home: const NewsLayout(),

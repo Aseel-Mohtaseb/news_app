@@ -8,6 +8,7 @@ import 'package:news_app/modules/tech_screen/tech_screen.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 import '../../models/article_model.dart';
+import '../../shared/network/local/cache_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates>{
   NewsCubit() : super(NewsInitialState());
@@ -92,7 +93,12 @@ class NewsCubit extends Cubit<NewsStates>{
 
   void changeMode(){
     isLight = !isLight;
-    emit(NewsChangeModeState());
+    print("1");
+    CacheHelper.setBool(key: "isLight", value: isLight).then((value) {
+      emit(NewsChangeModeState());
+      print("2");
+
+    });
   }
 
 
