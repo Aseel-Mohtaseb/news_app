@@ -5,6 +5,7 @@ import '../../models/article_model.dart';
 
 class NewsListItem extends StatelessWidget {
   late ArticleModel articleModel;
+
   NewsListItem({required this.articleModel});
 
   @override
@@ -19,9 +20,9 @@ class NewsListItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                image: NetworkImage(
-                  '${articleModel.urlToImage}',
-                ),
+                image: NetworkImage(articleModel.urlToImage != ''
+                    ? articleModel.urlToImage
+                    : 'https://www.moroylab.org/wp-content/uploads/2018/05/news-2444778_640.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -39,12 +40,18 @@ class NewsListItem extends StatelessWidget {
                 children: [
                   Text(
                     '${articleModel.title}',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis, ),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     maxLines: 3,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                      '${articleModel.publishedAt}',
+                    '${articleModel.publishedAt}',
                     style: TextStyle(color: Colors.grey[600]),
                   )
                 ],
