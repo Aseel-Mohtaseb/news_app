@@ -34,6 +34,15 @@ class NewsCubit extends Cubit<NewsStates>{
     emit(NewsChangeNavBarState());
   }
 
+  bool isLight = CacheHelper.getBool(key: 'isLight');
+
+  void changeMode(){
+    isLight = !isLight;
+    CacheHelper.setBool(key: "isLight", value: isLight).then((value) {
+      emit(NewsChangeModeState());
+    });
+  }
+
 
   List<ArticleModel> businessList = [];
 
@@ -89,17 +98,7 @@ class NewsCubit extends Cubit<NewsStates>{
     });
   }
 
-  bool isLight = true;
 
-  void changeMode(){
-    isLight = !isLight;
-    print("1");
-    CacheHelper.setBool(key: "isLight", value: isLight).then((value) {
-      emit(NewsChangeModeState());
-      print("2");
-
-    });
-  }
 
 
 }
