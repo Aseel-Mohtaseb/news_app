@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/cubit/states.dart';
@@ -10,7 +9,7 @@ import 'package:news_app/shared/network/remote/dio_helper.dart';
 import '../../models/article_model.dart';
 import '../../shared/network/local/cache_helper.dart';
 
-class NewsCubit extends Cubit<NewsStates>{
+class NewsCubit extends Cubit<NewsStates> {
   NewsCubit() : super(NewsInitialState());
 
   static NewsCubit get(context) => BlocProvider.of(context);
@@ -29,24 +28,23 @@ class NewsCubit extends Cubit<NewsStates>{
     TechScreen(),
   ];
 
-  void changeNavBarIndex(index){
+  void changeNavBarIndex(index) {
     bottomNavBarIndex = index;
     emit(NewsChangeNavBarState());
   }
 
   bool isLight = CacheHelper.getBool(key: 'isLight');
 
-  void changeMode(){
+  void changeMode() {
     isLight = !isLight;
     CacheHelper.setBool(key: "isLight", value: isLight).then((value) {
       emit(NewsChangeModeState());
     });
   }
 
-
   List<ArticleModel> businessList = [];
 
-  void getBusiness(){
+  void getBusiness() {
     emit(NewsGetBusinessLoadingState());
     DioHelper.getData(url: '/v2/top-headlines', query: {
       'country': 'us',
@@ -54,7 +52,8 @@ class NewsCubit extends Cubit<NewsStates>{
       'apiKey': '485691edba1548158fa3070d0566c01f'
     }).then((value) {
       emit(NewsGetBusinessSuccessState());
-      businessList = List<ArticleModel>.from(value.data['articles'].map((article)=>ArticleModel.fromMap(article)));
+      businessList = List<ArticleModel>.from(value.data['articles']
+          .map((article) => ArticleModel.fromMap(article)));
       print(value.data.toString());
     }).catchError((error) {
       emit(NewsGetBusinessErrorState());
@@ -64,7 +63,7 @@ class NewsCubit extends Cubit<NewsStates>{
 
   List<ArticleModel> scienceList = [];
 
-  void getScience(){
+  void getScience() {
     emit(NewsGetScienceLoadingState());
     DioHelper.getData(url: '/v2/top-headlines', query: {
       'country': 'us',
@@ -72,7 +71,8 @@ class NewsCubit extends Cubit<NewsStates>{
       'apiKey': '485691edba1548158fa3070d0566c01f'
     }).then((value) {
       emit(NewsGetScienceSuccessState());
-      scienceList = List<ArticleModel>.from(value.data['articles'].map((article)=>ArticleModel.fromMap(article)));
+      scienceList = List<ArticleModel>.from(value.data['articles']
+          .map((article) => ArticleModel.fromMap(article)));
       print(value.data.toString());
     }).catchError((error) {
       emit(NewsGetScienceErrorState());
@@ -82,7 +82,7 @@ class NewsCubit extends Cubit<NewsStates>{
 
   List<ArticleModel> techList = [];
 
-  void getTech(){
+  void getTech() {
     emit(NewsGetTechLoadingState());
     DioHelper.getData(url: '/v2/top-headlines', query: {
       'country': 'us',
@@ -90,15 +90,14 @@ class NewsCubit extends Cubit<NewsStates>{
       'apiKey': '485691edba1548158fa3070d0566c01f'
     }).then((value) {
       emit(NewsGetTechSuccessState());
-      techList = List<ArticleModel>.from(value.data['articles'].map((article)=>ArticleModel.fromMap(article)));
+      techList = List<ArticleModel>.from(value.data['articles']
+          .map((article) => ArticleModel.fromMap(article)));
       print(value.data.toString());
     }).catchError((error) {
       emit(NewsGetTechErrorState());
       print(error.toString());
     });
   }
-
-
 
 
 }

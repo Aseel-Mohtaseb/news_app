@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
                     statusBarColor: HexColor('333739'),
                     statusBarIconBrightness: Brightness.light,
                   ),
+                  foregroundColor: Colors.white
                 ),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                   backgroundColor: HexColor('333739'),

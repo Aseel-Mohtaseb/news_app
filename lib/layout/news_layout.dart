@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/cubit/cubit.dart';
 import 'package:news_app/layout/cubit/states.dart';
+import 'package:news_app/modules/search_screen/search_screen.dart';
+import 'package:news_app/shared/components/components.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({Key? key}) : super(key: key);
@@ -18,7 +19,9 @@ class NewsLayout extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: Text('News'), actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                navigateTo(context, SearchScreen());
+              },
               icon: const Icon(Icons.search),
             ),
             IconButton(
